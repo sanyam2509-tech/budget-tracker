@@ -75,7 +75,9 @@ export default function App() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  // Note: For Vercel deployment, change this back to: import.meta.env.VITE_GEMINI_API_KEY
+  // For this preview environment, it must remain an empty string.
+  const apiKey = ""; 
 
   // Load data from local storage on mount
   useEffect(() => {
@@ -155,7 +157,7 @@ export default function App() {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
-      // maximumFractionDigits: 0,  <-- REMOVE OR COMMENT OUT THIS LINE
+      // maximumFractionDigits: 0, 
     }).format(amount);
   };
 
@@ -351,10 +353,10 @@ export default function App() {
           {/* Left Column: Transaction List */}
           <div className="lg:col-span-2 space-y-6">
             
-            {/* Action Bar */}
+            {/* Action Bar - FIXED: Added flex-wrap and adjusted spacing */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-slate-800'}`}>Transactions</h3>
-              <div className="flex gap-2 w-full sm:w-auto">
+              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                 <div className={`flex rounded-lg p-1 shadow-sm border ${isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
                    {['all', 'income', 'expense'].map(type => (
                      <button
@@ -372,12 +374,12 @@ export default function App() {
                 </div>
                 
                 {/* AI Smart Add Button */}
-                <Button variant="ai" onClick={() => setIsSmartAddOpen(true)}>
+                <Button variant="ai" onClick={() => setIsSmartAddOpen(true)} className="flex-grow sm:flex-grow-0">
                   <Sparkles className="w-4 h-4" />
                   Smart Add
                 </Button>
 
-                <Button onClick={() => setIsModalOpen(true)} className="flex-1 sm:flex-none">
+                <Button onClick={() => setIsModalOpen(true)} className="flex-grow sm:flex-grow-0">
                   <Plus className="w-4 h-4" />
                   Add New
                 </Button>
